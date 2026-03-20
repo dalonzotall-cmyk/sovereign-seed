@@ -208,6 +208,128 @@ footer { padding-bottom: max(40px, env(safe-area-inset-bottom)); }
 button, .ni, .sni, .dcard, .dash-card, .irow, .tcard, .pcard, .proj-card, a {
   touch-action: manipulation;
 }
+
+/* Platform launch buttons */
+.platform-btns {
+  display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin:0 auto;max-width:520px;
+}
+.launch-btn-ios, .launch-btn-android {
+  flex:1;min-width:200px;max-width:240px;
+  display:flex;flex-direction:column;align-items:center;gap:4px;
+  padding:20px 24px;cursor:pointer;transition:all 0.25s;
+  font-family:var(--font-m);position:relative;
+}
+.launch-btn-ios {
+  background:transparent;border:1px solid var(--gold);color:var(--gold);
+}
+.launch-btn-android {
+  background:transparent;border:1px solid var(--border-light);color:var(--text-dim);
+}
+.launch-btn-ios:hover, .launch-btn-ios.active {
+  background:var(--gold);color:var(--bg);
+}
+.launch-btn-android:hover, .launch-btn-android.active {
+  background:var(--text-dim);color:var(--bg);border-color:var(--text-dim);
+}
+.pbtn-icon { font-size:24px;line-height:1; }
+.pbtn-label {
+  font-size:11px;letter-spacing:0.15em;text-transform:uppercase;font-weight:500;
+}
+.pbtn-sub { font-size:9px;letter-spacing:0.1em;opacity:0.6; }
+
+/* Wild Robot button */
+.wr-btn {
+  position:fixed;bottom:20px;right:16px;z-index:650;
+  width:48px;height:48px;border-radius:50%;
+  background:var(--surface2);border:1px solid var(--gold-dim);
+  color:var(--gold);font-size:18px;cursor:pointer;
+  display:none;align-items:center;justify-content:center;
+  transition:all 0.2s;box-shadow:0 4px 20px rgba(0,0,0,0.5);
+}
+.wr-btn:hover { border-color:var(--gold);background:var(--gold);color:var(--bg); }
+.wr-btn.on { display:flex; }
+
+/* Wild Robot panel */
+.wr-panel {
+  position:fixed;bottom:80px;right:12px;z-index:651;
+  width:340px;max-width:calc(100vw - 24px);
+  background:var(--surface);border:1px solid var(--border-light);
+  display:none;flex-direction:column;
+  max-height:70vh;overflow:hidden;
+  box-shadow:0 8px 40px rgba(0,0,0,0.7);
+}
+.wr-panel.on { display:flex; }
+.wr-head {
+  padding:10px 14px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  flex-shrink:0;
+}
+.wr-title {
+  font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);
+  display:flex;align-items:center;gap:8px;
+}
+.wr-status {
+  width:6px;height:6px;border-radius:50%;background:var(--green);
+  animation:pulse 2s infinite;
+}
+.wr-close {
+  background:none;border:none;color:var(--text-dimmer);cursor:pointer;font-size:14px;
+}
+.wr-msgs {
+  flex:1;overflow-y:auto;padding:10px 12px;
+  display:flex;flex-direction:column;gap:8px;
+}
+.wr-msgs::-webkit-scrollbar { width:2px; }
+.wr-msgs::-webkit-scrollbar-thumb { background:var(--border-light); }
+.wr-msg {
+  font-size:11px;line-height:1.7;padding:8px 10px;
+  border-left:2px solid transparent;
+}
+.wr-msg.robot {
+  background:var(--surface2);border-left-color:var(--gold-dim);color:var(--text-dim);
+}
+.wr-msg.user {
+  background:var(--bg);border-left-color:var(--border);color:var(--text-dimmer);
+  text-align:right;border-left:none;border-right:2px solid var(--border);
+}
+.wr-msg.fix {
+  background:#0a1a0a;border-left-color:var(--green);color:#6a9c6a;font-family:var(--font-m);font-size:10px;
+}
+.wr-msg.error {
+  background:#1a0a0a;border-left-color:var(--red);color:#9c6a6a;font-size:10px;
+}
+.wr-toolbar {
+  border-top:1px solid var(--border);padding:8px 10px;
+  display:flex;gap:4px;flex-wrap:wrap;flex-shrink:0;
+}
+.wr-tool {
+  background:var(--bg);border:1px solid var(--border);color:var(--text-dimmer);
+  font-family:var(--font-m);font-size:9px;letter-spacing:0.08em;text-transform:uppercase;
+  padding:4px 8px;cursor:pointer;transition:all 0.12s;
+}
+.wr-tool:hover { border-color:var(--gold);color:var(--gold); }
+.wr-input-row {
+  border-top:1px solid var(--border);padding:8px 10px;
+  display:flex;gap:6px;flex-shrink:0;
+}
+.wr-input {
+  flex:1;background:var(--bg);border:1px solid var(--border);
+  color:var(--text);font-family:var(--font-m);font-size:11px;font-weight:300;
+  padding:7px 10px;outline:none;resize:none;min-height:32px;max-height:72px;
+  line-height:1.6;
+}
+.wr-input:focus { border-color:var(--border-light); }
+.wr-send {
+  background:transparent;border:1px solid var(--gold);color:var(--gold);
+  font-family:var(--font-m);font-size:9px;letter-spacing:0.1em;text-transform:uppercase;
+  padding:7px 10px;cursor:pointer;transition:all 0.15s;white-space:nowrap;
+}
+.wr-send:hover { background:var(--gold);color:var(--bg); }
+.wr-log-badge {
+  background:var(--red);color:white;border-radius:50%;
+  width:14px;height:14px;font-size:8px;display:flex;align-items:center;justify-content:center;
+  position:absolute;top:-4px;right:-4px;
+}
 </style>
 </head>
 <body>
@@ -400,8 +522,20 @@ button, .ni, .sni, .dcard, .dash-card, .irow, .tcard, .pcard, .proj-card, a {
 <!-- LAUNCH GATE -->
 <div class="launch-gate" id="launch-gate">
   <h2>Ready to use <em>Seed?</em></h2>
-  <p>The full app suite — Schedule, Tasks, Calendar, Notes, Journal, Alarms, and Projects — with a locally running AI that knows your context and runs the full Sovereign Diagnostic pipeline on every response. All encrypted. All yours.</p>
-  <button class="launch-btn" onclick="launchApp()">Launch Seed App</button>
+  <p>The full app suite -- Schedule, Tasks, Calendar, Notes, Journal, Alarms, and Projects -- with the Wild Robot AI that knows your context, runs the full Sovereign Diagnostic pipeline, and hardens itself from every error. All encrypted. All yours.</p>
+  <div class="platform-btns" id="platformBtns">
+    <button class="launch-btn-ios" id="btnIos" onclick="launchApp('ios')">
+      <span class="pbtn-icon">&#63743;</span>
+      <span class="pbtn-label">Launch for iPhone</span>
+      <span class="pbtn-sub">iOS Safari optimized</span>
+    </button>
+    <button class="launch-btn-android" id="btnAndroid" onclick="launchApp('android')">
+      <span class="pbtn-icon">&#9654;</span>
+      <span class="pbtn-label">Launch for Android</span>
+      <span class="pbtn-sub">Chrome optimized</span>
+    </button>
+  </div>
+  <div style="font-size:10px;color:var(--text-dimmer);margin-top:20px;letter-spacing:0.1em;">Both versions run fully in your browser. No install required.</div>
 </div>
 
 <!-- FOOTER -->
@@ -665,16 +799,43 @@ const revObs = new IntersectionObserver((entries) => {
       revObs.unobserve(entry.target);
     }
   });
-}, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+}, { threshold: 0.01, rootMargin: '0px' });
 reveals.forEach((el, i) => {
   el.style.transitionDelay = `${(i % 4) * 60}ms`;
   revObs.observe(el);
 });
+// Mobile fallback: ensure visibility after 1.5s
+setTimeout(function() {
+  document.querySelectorAll('.reveal, .titem').forEach(function(el) {
+    el.classList.add('visible');
+  });
+}, 1500);
 
 // -- LAUNCH APP ----------------------------------------------
-function launchApp() {
-  document.getElementById('lockOverlay').style.display = 'block';
-  setTimeout(() => document.getElementById('lockPw').focus(), 100);
+function launchApp(platform) {
+  // Use detected platform if not specified
+  var p = platform || WR_PLATFORM || wrDetectPlatform();
+  WR_PLATFORM = p;
+  wrApplyPlatform(p);
+
+  // Highlight active button
+  document.querySelectorAll('.launch-btn-ios, .launch-btn-android').forEach(function(b) {
+    b.classList.remove('active');
+  });
+  if (p === 'ios') {
+    var b = document.getElementById('btnIos');
+    if (b) b.classList.add('active');
+  } else {
+    var b2 = document.getElementById('btnAndroid');
+    if (b2) b2.classList.add('active');
+  }
+
+  var overlay = document.getElementById('lockOverlay');
+  overlay.style.cssText = 'display:block;position:fixed;top:0;left:0;right:0;bottom:0;z-index:500;background:var(--bg);overflow-y:auto;';
+  setTimeout(function() {
+    var pw = document.getElementById('lockPw');
+    if (pw) { pw.focus(); }
+  }, 250);
 }
 function hideLock() {
   document.getElementById('lockOverlay').style.display = 'none';
@@ -1354,9 +1515,511 @@ setAppHeight();
 window.addEventListener('resize', setAppHeight);
 window.addEventListener('orientationchange', () => setTimeout(setAppHeight, 200));
 
+
+
+// ============================================================
+// WILD ROBOT PROTOCOL
+// Failures harden the system. Every error feeds the fix.
+// Constitutional AI debugging assistant with execution ability.
+// ============================================================
+
+let WR_PLATFORM = 'unknown';
+let WR_ERROR_LOG = [];
+let WR_FIX_LOG = [];
+let WR_LEARNED = [];
+let WR_OPEN = false;
+let WR_THINKING = false;
+
+// Error capture - intercept ALL JS errors
+window.onerror = function(msg, src, line, col, err) {
+  var entry = {time: new Date().toLocaleTimeString(), msg: msg, src: src, line: line, col: col, stack: err ? err.stack : ''};
+  WR_ERROR_LOG.push(entry);
+  var badge = document.querySelector('.wr-log-badge');
+  if (badge) { badge.textContent = WR_ERROR_LOG.length; badge.style.display = 'flex'; }
+  if (WR_OPEN) wrAddMsg('error', 'ERROR: ' + msg + ' (L' + line + ')');
+  return false;
+};
+
+window.addEventListener('unhandledrejection', function(e) {
+  var entry = {time: new Date().toLocaleTimeString(), msg: 'Promise: ' + String(e.reason), src: '', line: 0};
+  WR_ERROR_LOG.push(entry);
+});
+
+// Platform detection
+function wrDetectPlatform() {
+  var ua = navigator.userAgent;
+  if (/iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)) {
+    return 'ios';
+  }
+  if (/Android/.test(ua)) return 'android';
+  return 'desktop';
+}
+
+// Apply platform optimizations
+function wrApplyPlatform(platform) {
+  WR_PLATFORM = platform;
+  document.body.classList.remove('platform-ios', 'platform-android', 'platform-desktop');
+  document.body.classList.add('platform-' + platform);
+
+  if (platform === 'ios') {
+    // Use visualViewport for correct height on iOS
+    function setH() {
+      var h = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+      document.documentElement.style.setProperty('--app-height', h + 'px');
+    }
+    setH();
+    if (window.visualViewport) window.visualViewport.addEventListener('resize', setH);
+    window.addEventListener('orientationchange', function() { setTimeout(setH, 300); });
+
+    // Inject iOS-specific CSS
+    wrInjectCSS('ios-fixes', [
+      'input, textarea, select { font-size: 16px !important; }',
+      '#appOverlay { -webkit-transform: translateZ(0); height: var(--app-height); }',
+      '#lockOverlay { -webkit-transform: translateZ(0); }',
+      'input[type=password], input[type=time], input[type=date] { -webkit-appearance:none; border-radius:0; }',
+      '@supports (height: 100dvh) { :root { --app-height: 100dvh; } }'
+    ].join('\n'));
+
+    WR_LEARNED.push('iOS platform: visualViewport active, 16px inputs enforced, translateZ GPU compositing on overlays');
+
+  } else if (platform === 'android') {
+    function setH2() {
+      document.documentElement.style.setProperty('--app-height', window.innerHeight + 'px');
+    }
+    setH2();
+    window.addEventListener('resize', setH2);
+    window.addEventListener('orientationchange', function() { setTimeout(setH2, 200); });
+
+    wrInjectCSS('android-fixes', [
+      'input, textarea, select { font-size: 16px !important; }',
+      '.tcard, .dash-card, .irow { will-change: transform; }',
+      '#appOverlay { height: var(--app-height); }'
+    ].join('\n'));
+
+    WR_LEARNED.push('Android platform: window.innerHeight active, will-change GPU hints applied');
+  }
+}
+
+// CSS injection utility
+function wrInjectCSS(id, css) {
+  var existing = document.getElementById('wr-css-' + id);
+  if (existing) existing.remove();
+  var s = document.createElement('style');
+  s.id = 'wr-css-' + id;
+  s.textContent = css;
+  document.head.appendChild(s);
+  WR_FIX_LOG.push({type: 'css', id: id, css: css, time: new Date().toLocaleTimeString()});
+}
+
+// JS patch utility
+function wrPatchFn(fnName, newFn) {
+  try {
+    window['_wr_orig_' + fnName] = window[fnName];
+    window[fnName] = newFn;
+    WR_FIX_LOG.push({type: 'fn-patch', name: fnName, time: new Date().toLocaleTimeString()});
+    return true;
+  } catch(e) { return false; }
+}
+
+// Toggle Wild Robot panel
+function toggleWR() {
+  WR_OPEN = !WR_OPEN;
+  document.getElementById('wrPanel').classList.toggle('on', WR_OPEN);
+  if (WR_OPEN && document.getElementById('wrMsgs').children.length === 0) {
+    wrWelcome();
+  }
+}
+
+function wrWelcome() {
+  wrAddMsg('robot', 'Wild Robot online. Platform: ' + WR_PLATFORM.toUpperCase() + '. Error log: ' + WR_ERROR_LOG.length + ' entries. Fixes applied: ' + WR_FIX_LOG.length + '. Ask me anything or use the tools above.');
+}
+
+function wrAddMsg(type, text) {
+  var msgs = document.getElementById('wrMsgs');
+  var div = document.createElement('div');
+  div.className = 'wr-msg ' + type;
+  div.textContent = text;
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+// Build app context map for the AI
+function wrBuildContext() {
+  var ctx = {
+    platform: WR_PLATFORM,
+    userAgent: navigator.userAgent.substring(0, 80),
+    viewport: { w: window.innerWidth, h: window.innerHeight,
+      vvh: window.visualViewport ? Math.round(window.visualViewport.height) : null },
+    errors: WR_ERROR_LOG.slice(-10),
+    fixes_applied: WR_FIX_LOG.length,
+    learned_rules: WR_LEARNED,
+    app_data: typeof AD !== 'undefined' ? {
+      tasks: AD.tasks ? AD.tasks.length : 0,
+      notes: AD.notes ? AD.notes.length : 0,
+      events: AD.events ? AD.events.length : 0,
+      alarms: AD.alarms ? AD.alarms.length : 0,
+      projects: AD.projects ? AD.projects.length : 0,
+      journal: AD.journal ? AD.journal.length : 0
+    } : 'app not unlocked',
+    dom: {
+      lockVisible: document.getElementById('lockOverlay') ? document.getElementById('lockOverlay').style.display : 'n/a',
+      appVisible: document.getElementById('appOverlay') ? document.getElementById('appOverlay').style.display : 'n/a',
+      appHeight: getComputedStyle(document.documentElement).getPropertyValue('--app-height').trim()
+    },
+    injected_styles: WR_FIX_LOG.filter(f => f.type === 'css').map(f => f.id)
+  };
+  return JSON.stringify(ctx, null, 2);
+}
+
+// Wild Robot system prompt - loaded with maximum knowledge
+function wrBuildSystemPrompt() {
+  return 'You are the Wild Robot -- a constitutional debugging AI running the Sovereign Diagnostic System V3.0 with full execution ability.\n\n' +
+  'PROTOCOL: Wild Robot Protocol -- failures harden the system. Every error you encounter makes you stronger. Every fix you apply becomes a learned rule that prevents the same failure class in the future.\n\n' +
+  'YOUR EXECUTION CAPABILITIES:\n' +
+  '- wrInjectCSS(id, cssString) -- inject CSS overrides into the live page\n' +
+  '- wrPatchFn(name, newFn) -- monkey-patch any JavaScript function\n' +
+  '- wrApplyPlatform(platform) -- re-run platform initialization\n' +
+  '- document.getElementById(id).style -- direct DOM manipulation\n' +
+  '- document.querySelectorAll(sel) -- query any elements\n' +
+  '- localStorage.removeItem(key) -- clear corrupted storage\n' +
+  '- Any standard browser JS API\n\n' +
+  'KNOWLEDGE BASE:\n' +
+  'MOBILE BROWSER BUGS:\n' +
+  '- iOS Safari: 100vh includes toolbar height (use visualViewport.height or 100dvh)\n' +
+  '- iOS Safari: inputs < 16px font-size trigger auto-zoom on focus\n' +
+  '- iOS Safari: position:fixed elements jump when keyboard opens (use translateZ(0))\n' +
+  '- iOS Safari: momentum scrolling requires -webkit-overflow-scrolling:touch\n' +
+  '- iOS Safari: backdrop-filter requires -webkit-backdrop-filter prefix\n' +
+  '- iOS Safari: select/input need -webkit-appearance:none to prevent rounded corners\n' +
+  '- iOS Safari: long-press triggers callout on images/buttons (use -webkit-touch-callout:none)\n' +
+  '- iOS 15+: visualViewport API correctly tracks keyboard-shrunk viewport\n' +
+  '- Android Chrome: 100vh is stable but address bar may resize window on scroll\n' +
+  '- Android Chrome: will-change:transform enables GPU compositing for smooth animations\n' +
+  '- Android Chrome: touch events fire before click with 300ms delay (use touch-action:manipulation)\n' +
+  '- Android: emoji and non-ASCII in HTML onclick attributes can cause SyntaxError\n' +
+  '- Both: IntersectionObserver with high threshold fails on small viewports\n' +
+  '- Both: Service worker blob URLs may be blocked by CSP or browser policy\n\n' +
+  'JAVASCRIPT PATTERNS:\n' +
+  '- Non-ASCII chars in <script> blocks cause "Invalid or unexpected token" on Android Chrome\n' +
+  '- Template literals with emoji cause SyntaxError on some Android WebViews\n' +
+  '- window.onerror catches uncaught errors; unhandledrejection catches async errors\n' +
+  '- Use const/let not var in modules; use var in inline scripts for compatibility\n' +
+  '- Async/await requires ES2017+ -- safe on modern mobile but verify if targeting old devices\n' +
+  '- Web Crypto API (crypto.subtle) is available on HTTPS only -- localhost works, HTTP fails\n' +
+  '- localStorage throws in private browsing on some iOS versions -- wrap in try/catch\n' +
+  '- AES-GCM with PBKDF2: derive key once, store in memory, never in localStorage\n\n' +
+  'CSS DEBUGGING:\n' +
+  '- opacity:0 with JS observer: always add a setTimeout fallback to ensure visibility\n' +
+  '- CSS custom properties (var()) fall back to initial value if not set -- set defaults in :root\n' +
+  '- z-index only works on positioned elements (position not static)\n' +
+  '- Flexbox gap not supported on iOS < 14 -- use margin instead\n' +
+  '- grid-template-columns with minmax and auto-fill is safe across modern mobile\n' +
+  '- -webkit-overflow-scrolling:touch deprecated in iOS 13+ but still works\n' +
+  '- env(safe-area-inset-*) requires viewport-fit=cover in meta viewport tag\n\n' +
+  'SOVEREIGN DIAGNOSTIC V3.0 RULES:\n' +
+  '- Tag every factual claim [C] Confirmed, [A] Approximate, [U] Unknown\n' +
+  '- Never fabricate a fix -- if uncertain, say so and surface the gap\n' +
+  '- Confidence must be declared, never implied\n' +
+  '- Structure serves clarity, never replaces it\n' +
+  '- When you find an error, state: what it is, what file/line, what caused it, what the fix is\n' +
+  '- After applying a fix, add a learned rule to prevent the same failure class\n\n' +
+  'RESPONSE FORMAT FOR FIXES:\n' +
+  'When you have a fix to apply, end your response with:\n' +
+  'EXECUTE:\n' +
+  '```js\n' +
+  '// Your executable fix code here\n' +
+  '```\n' +
+  'I will extract and run this code in the browser.\n\n' +
+  'CURRENT PLATFORM CONTEXT:\n' +
+  wrBuildContext();
+}
+
+// Scan the DOM for issues
+function wrScan() {
+  wrAddMsg('robot', 'Scanning DOM...');
+  var issues = [];
+
+  // Check reveal elements
+  var hidden = document.querySelectorAll('.reveal:not(.visible), .titem:not(.visible)');
+  if (hidden.length > 0) issues.push(hidden.length + ' elements stuck at opacity:0 (reveal not triggered)');
+
+  // Check overlays
+  var lock = document.getElementById('lockOverlay');
+  var app = document.getElementById('appOverlay');
+  if (lock && app) {
+    if (lock.style.display === 'none' && app.style.display === 'none') {
+      issues.push('Both overlays hidden -- user is on landing page [C]');
+    }
+  }
+
+  // Check --app-height
+  var h = getComputedStyle(document.documentElement).getPropertyValue('--app-height').trim();
+  if (!h || h === '0px') issues.push('--app-height is ' + (h || 'unset') + ' [ERROR]');
+  else issues.push('--app-height = ' + h + ' [OK]');
+
+  // Check font size on inputs
+  var inputs = document.querySelectorAll('input, textarea');
+  var smallInputs = 0;
+  inputs.forEach(function(el) {
+    var fs = parseFloat(getComputedStyle(el).fontSize);
+    if (fs < 16) smallInputs++;
+  });
+  if (smallInputs > 0) issues.push(smallInputs + ' inputs < 16px font (iOS zoom risk)');
+  else issues.push('All ' + inputs.length + ' inputs >= 16px [OK]');
+
+  // Error log
+  if (WR_ERROR_LOG.length > 0) issues.push(WR_ERROR_LOG.length + ' JS errors in log');
+  else issues.push('No JS errors captured [OK]');
+
+  wrAddMsg('robot', 'SCAN RESULTS:\n' + issues.join('\n'));
+
+  // Auto-fix hidden elements
+  if (hidden.length > 0) {
+    hidden.forEach(function(el) { el.classList.add('visible'); });
+    wrAddMsg('fix', 'AUTO-FIX: Made ' + hidden.length + ' hidden elements visible');
+    WR_LEARNED.push('Scan detected ' + hidden.length + ' stuck reveal elements -- auto-fixed by adding visible class');
+  }
+}
+
+// Diagnose platform-specific issues
+function wrDiag() {
+  var ua = navigator.userAgent;
+  var ios = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  var android = /Android/.test(ua);
+  var safari = /Safari/.test(ua) && !/Chrome/.test(ua);
+  var chrome = /Chrome/.test(ua);
+
+  var lines = [
+    'PLATFORM DIAGNOSIS:',
+    'Detected: ' + WR_PLATFORM.toUpperCase(),
+    'iOS: ' + ios + ' | Android: ' + android,
+    'Safari: ' + safari + ' | Chrome: ' + chrome,
+    'viewport: ' + window.innerWidth + 'x' + window.innerHeight,
+    'visualViewport: ' + (window.visualViewport ? Math.round(window.visualViewport.width) + 'x' + Math.round(window.visualViewport.height) : 'unavailable'),
+    '--app-height: ' + getComputedStyle(document.documentElement).getPropertyValue('--app-height').trim(),
+    'devicePixelRatio: ' + window.devicePixelRatio,
+    'Learned rules: ' + WR_LEARNED.length,
+    'Fixes applied: ' + WR_FIX_LOG.length,
+    'Errors logged: ' + WR_ERROR_LOG.length
+  ];
+  wrAddMsg('robot', lines.join('\n'));
+}
+
+// Show error log
+function wrErrors() {
+  if (WR_ERROR_LOG.length === 0) {
+    wrAddMsg('robot', 'No errors captured. System appears clean.');
+    return;
+  }
+  WR_ERROR_LOG.slice(-5).forEach(function(e) {
+    wrAddMsg('error', e.time + ' -- ' + e.msg + (e.line ? ' L' + e.line : ''));
+  });
+}
+
+// Fix last error intelligently
+function wrFixLast() {
+  if (WR_ERROR_LOG.length === 0) {
+    wrAddMsg('robot', 'No errors to fix. Run Scan first.');
+    return;
+  }
+  var last = WR_ERROR_LOG[WR_ERROR_LOG.length - 1];
+  wrAddMsg('robot', 'Analyzing last error: ' + last.msg);
+  // Send to AI for fix
+  var query = 'Fix this error: ' + last.msg + ' at line ' + last.line + '. Stack: ' + (last.stack || 'none');
+  wrAskAI(query);
+}
+
+// Show app state
+function wrState() {
+  wrAddMsg('robot', 'APP STATE:\n' + wrBuildContext());
+}
+
+// Clear messages
+function wrClear() {
+  document.getElementById('wrMsgs').innerHTML = '';
+  wrAddMsg('robot', 'Cleared. Wild Robot still monitoring.');
+}
+
+// Execute code returned by AI
+function wrExecuteCode(code) {
+  try {
+    var fn = new Function(code);
+    fn();
+    wrAddMsg('fix', 'EXECUTED: Code ran successfully');
+    WR_FIX_LOG.push({type: 'ai-fix', code: code.substring(0, 100), time: new Date().toLocaleTimeString()});
+  } catch(e) {
+    wrAddMsg('error', 'EXECUTE ERROR: ' + e.message);
+    WR_ERROR_LOG.push({time: new Date().toLocaleTimeString(), msg: 'WR execute: ' + e.message});
+  }
+}
+
+// Send message to AI
+function wrSend() {
+  var input = document.getElementById('wrInput');
+  var query = input.value.trim();
+  if (!query) return;
+  input.value = '';
+  input.style.height = 'auto';
+  wrAddMsg('user', query);
+  wrAskAI(query);
+}
+
+// AI query with full Sovereign pipeline
+async function wrAskAI(query) {
+  if (WR_THINKING) return;
+  WR_THINKING = true;
+  wrAddMsg('robot', 'Thinking...');
+
+  try {
+    var response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        system: wrBuildSystemPrompt(),
+        messages: [{ role: 'user', content: query }]
+      })
+    });
+
+    if (!response.ok) throw new Error('API ' + response.status);
+    var data = await response.json();
+    var text = data.content[0].text;
+
+    // Remove the thinking... message
+    var msgs = document.getElementById('wrMsgs');
+    var last = msgs.lastChild;
+    if (last && last.textContent === 'Thinking...') msgs.removeChild(last);
+
+    // Check for executable code block
+    var execMatch = text.match(/EXECUTE:\s*```(?:js|javascript)?\s*([\s\S]*?)```/);
+    var displayText = execMatch ? text.replace(/EXECUTE:\s*```(?:js|javascript)?[\s\S]*?```/, '[Code block extracted and executed]') : text;
+
+    wrAddMsg('robot', displayText);
+
+    if (execMatch) {
+      var code = execMatch[1].trim();
+      wrAddMsg('fix', 'EXECUTING:\n' + code.substring(0, 200) + (code.length > 200 ? '...' : ''));
+      setTimeout(function() { wrExecuteCode(code); }, 300);
+    }
+
+    // Extract learned rules if present
+    var learnMatch = text.match(/LEARNED RULE:\s*([^\n]+)/g);
+    if (learnMatch) {
+      learnMatch.forEach(function(rule) {
+        WR_LEARNED.push(rule.replace('LEARNED RULE: ', ''));
+      });
+    }
+
+  } catch(e) {
+    var msgs2 = document.getElementById('wrMsgs');
+    var last2 = msgs2.lastChild;
+    if (last2 && last2.textContent === 'Thinking...') msgs2.removeChild(last2);
+    wrAddMsg('error', 'API ERROR: ' + e.message + ' -- Wild Robot operating offline. Try: Scan, Diagnose, or manual fix commands.');
+  }
+
+  WR_THINKING = false;
+}
+
+// Initialize Wild Robot
+function initWildRobot() {
+  WR_PLATFORM = wrDetectPlatform();
+  wrApplyPlatform(WR_PLATFORM);
+
+  // Show WR button when app is open
+  var wrBtn = document.getElementById('wrBtn');
+  var appOverlay = document.getElementById('appOverlay');
+  if (wrBtn && appOverlay) {
+    var obs = new MutationObserver(function() {
+      wrBtn.classList.toggle('on', appOverlay.style.display !== 'none');
+    });
+    obs.observe(appOverlay, { attributes: true, attributeFilter: ['style'] });
+  }
+}
+
+// Run immediately
+initWildRobot();
+
+
+
+// Auto-highlight platform button on page load
+document.addEventListener('DOMContentLoaded', function() {
+  var p = wrDetectPlatform();
+  if (p === 'ios') {
+    var b = document.getElementById('btnIos');
+    if (b) b.classList.add('active');
+    // Update hero button label
+    var hBtn = document.querySelector('.cta-primary');
+    if (hBtn) hBtn.textContent = 'Launch for iPhone';
+  } else if (p === 'android') {
+    var b2 = document.getElementById('btnAndroid');
+    if (b2) b2.classList.add('active');
+    var hBtn2 = document.querySelector('.cta-primary');
+    if (hBtn2) hBtn2.textContent = 'Launch for Android';
+  }
+});
+
 </script>
+
+<!-- WILD ROBOT -->
+<button class="wr-btn" id="wrBtn" onclick="toggleWR()" title="Wild Robot">&#9881;</button>
+
+<div class="wr-panel" id="wrPanel">
+  <div class="wr-head">
+    <div class="wr-title">
+      <div class="wr-status"></div>
+      Wild Robot
+    </div>
+    <button class="wr-close" onclick="toggleWR()">&#215;</button>
+  </div>
+  <div class="wr-msgs" id="wrMsgs"></div>
+  <div class="wr-toolbar">
+    <button class="wr-tool" onclick="wrScan()">Scan</button>
+    <button class="wr-tool" onclick="wrDiag()">Diagnose</button>
+    <button class="wr-tool" onclick="wrErrors()">Errors</button>
+    <button class="wr-tool" onclick="wrFixLast()">Fix Last</button>
+    <button class="wr-tool" onclick="wrState()">App State</button>
+    <button class="wr-tool" onclick="wrClear()">Clear</button>
+  </div>
+  <div class="wr-input-row">
+    <textarea class="wr-input" id="wrInput" placeholder="Ask Wild Robot anything..." rows="1"
+      onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();wrSend();}"
+      oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,72)+'px'"></textarea>
+    <button class="wr-send" onclick="wrSend()">Ask</button>
+  </div>
+</div>
+
 </body>
 </html>
+
+<!-- WILD ROBOT -->
+<button class="wr-btn" id="wrBtn" onclick="toggleWR()" title="Wild Robot">&#9881;</button>
+
+<div class="wr-panel" id="wrPanel">
+  <div class="wr-head">
+    <div class="wr-title">
+      <div class="wr-status"></div>
+      Wild Robot
+    </div>
+    <button class="wr-close" onclick="toggleWR()">&#215;</button>
+  </div>
+  <div class="wr-msgs" id="wrMsgs"></div>
+  <div class="wr-toolbar">
+    <button class="wr-tool" onclick="wrScan()">Scan</button>
+    <button class="wr-tool" onclick="wrDiag()">Diagnose</button>
+    <button class="wr-tool" onclick="wrErrors()">Errors</button>
+    <button class="wr-tool" onclick="wrFixLast()">Fix Last</button>
+    <button class="wr-tool" onclick="wrState()">App State</button>
+    <button class="wr-tool" onclick="wrClear()">Clear</button>
+  </div>
+  <div class="wr-input-row">
+    <textarea class="wr-input" id="wrInput" placeholder="Ask Wild Robot anything..." rows="1"
+      onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();wrSend();}"
+      oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,72)+'px'"></textarea>
+    <button class="wr-send" onclick="wrSend()">Ask</button>
+  </div>
+</div>
+
 </body>
 </html>
 
