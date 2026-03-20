@@ -7,105 +7,409 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Seed">
 <meta name="theme-color" content="#090907">
-<title>Seed — Your Personal OS</title>
+<title>Seed — Built to amplify what is already in you</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
+/* ── RESET & ROOT ─────────────────────────────────────────── */
 :root {
-  --bg:#090907;--surface:#111110;--surface2:#1a1a18;--surface3:#222220;
-  --border:#2a2a28;--border-light:#383835;--text:#e8e4d9;--text-dim:#9a9690;
-  --text-dimmer:#5a5a58;--gold:#c8a96e;--gold-dim:#7a6030;--green:#4a7c59;
-  --green-dim:#2d4f38;--red:#7c4a4a;--red-dim:#4f2d2d;--blue:#4a6a7c;
-  --radius:0px;--font-d:'Cormorant Garamond',serif;--font-m:'IBM Plex Mono',monospace;
+  --bg:#090907; --surface:#111110; --surface2:#1a1a18; --surface3:#222220;
+  --border:#2a2a28; --border-light:#383835;
+  --text:#e8e4d9; --text-dim:#9a9690; --text-dimmer:#5a5a58;
+  --gold:#c8a96e; --gold-dim:#7a6030; --gold-bright:#dfc07e;
+  --green:#4a7c59; --green-dim:#2d4f38;
+  --red:#7c4a4a; --red-dim:#4f2d2d; --blue:#4a6a7c;
+  --radius:0px;
+  --font-d:'Cormorant Garamond',serif;
+  --font-m:'IBM Plex Mono',monospace;
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-html,body{height:100%;overflow:hidden;}
-body{background:var(--bg);color:var(--text);font-family:var(--font-m);font-weight:300;font-size:13px;line-height:1.6;user-select:none;}
-/* LOCK */
-#lock{position:fixed;inset:0;z-index:1000;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:48px 32px;}
-.lock-logo{font-family:var(--font-d);font-size:56px;font-weight:300;letter-spacing:0.4em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;}
-.lock-sub{font-size:10px;letter-spacing:0.25em;text-transform:uppercase;color:var(--text-dimmer);margin-bottom:64px;}
-.lock-form{width:100%;max-width:300px;display:flex;flex-direction:column;gap:10px;}
-.lock-input{background:var(--surface);border:1px solid var(--border);color:var(--text);font-family:var(--font-m);font-size:13px;padding:14px 16px;outline:none;text-align:center;letter-spacing:0.2em;transition:border-color 0.2s;}
-.lock-input:focus{border-color:var(--gold);}
-.lock-input::placeholder{color:var(--text-dimmer);letter-spacing:0.05em;}
-.lock-btn{background:transparent;border:1px solid var(--gold);color:var(--gold);font-family:var(--font-m);font-size:11px;letter-spacing:0.15em;text-transform:uppercase;padding:13px;cursor:pointer;transition:all 0.2s;}
-.lock-btn:hover{background:var(--gold);color:var(--bg);}
-.lock-err{font-size:11px;color:var(--red);text-align:center;display:none;margin-top:4px;}
-.lock-hint{font-size:10px;color:var(--text-dimmer);text-align:center;line-height:1.8;margin-top:8px;}
-/* APP SHELL */
-#app{display:none;height:100vh;flex-direction:column;overflow:hidden;}
-#app.on{display:flex;}
-/* TOPBAR */
-.topbar{height:52px;min-height:52px;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 14px;flex-shrink:0;}
-.tlogo{font-family:var(--font-d);font-size:17px;font-weight:300;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold);}
-.tright{display:flex;align-items:center;gap:10px;}
-.tclock{font-size:11px;color:var(--text-dimmer);letter-spacing:0.08em;}
-.tibtn{background:none;border:none;color:var(--text-dim);cursor:pointer;font-size:15px;padding:4px;transition:color 0.15s;}
-.tibtn:hover{color:var(--gold);}
-/* LAYOUT */
-.shell{flex:1;display:flex;overflow:hidden;}
-/* SIDEBAR */
-.sidebar{width:210px;min-width:210px;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden;transition:width 0.25s,min-width 0.25s;}
-.sidebar.col{width:52px;min-width:52px;}
-.slabel{font-size:9px;letter-spacing:0.25em;text-transform:uppercase;color:var(--text-dimmer);padding:12px 14px 6px;white-space:nowrap;overflow:hidden;}
-.sidebar.col .slabel{opacity:0;}
-.ni{display:flex;align-items:center;gap:10px;padding:9px 14px;cursor:pointer;transition:background 0.12s,color 0.12s;white-space:nowrap;overflow:hidden;border-left:2px solid transparent;}
-.ni:hover{background:var(--surface2);}
-.ni.on{background:var(--surface2);border-left-color:var(--gold);color:var(--gold);}
-.nicon{font-size:15px;flex-shrink:0;width:22px;text-align:center;}
-.nlabel{font-size:11px;letter-spacing:0.08em;text-transform:uppercase;overflow:hidden;transition:opacity 0.15s;}
-.sidebar.col .nlabel{opacity:0;pointer-events:none;}
-.sspacer{flex:1;}
-.sbottom{border-top:1px solid var(--border);}
-/* CONTENT */
-.content{flex:1;display:flex;flex-direction:column;overflow:hidden;}
-/* VIEW HEADER */
-.vhead{padding:16px 20px 12px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;background:var(--bg);}
-.vtitle{font-family:var(--font-d);font-size:26px;font-weight:300;}
-.vtitle em{font-style:italic;color:var(--gold);}
-.vacts{display:flex;gap:6px;}
-.abtn{background:transparent;border:1px solid var(--border);color:var(--text-dim);font-family:var(--font-m);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;padding:7px 14px;cursor:pointer;transition:all 0.15s;}
-.abtn:hover{border-color:var(--gold);color:var(--gold);}
-.abtn.p{border-color:var(--gold);color:var(--gold);}
-.abtn.p:hover{background:var(--gold);color:var(--bg);}
-/* VIEW BODY */
-.vbody{flex:1;overflow-y:auto;padding:16px 20px;}
-.vbody::-webkit-scrollbar{width:3px;}
-.vbody::-webkit-scrollbar-thumb{background:var(--border-light);}
-/* VIEWS */
-.view{display:none;height:100%;flex-direction:column;}
-.view.on{display:flex;}
-/* DASHBOARD */
-.dgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;}
-.dcard{background:var(--surface);border:1px solid var(--border);padding:18px;cursor:pointer;transition:border-color 0.15s,background 0.15s;}
-.dcard:hover{border-color:var(--border-light);background:var(--surface2);}
-.dch{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
-.dct{font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dimmer);}
-.dci{font-size:16px;}
-.dcn{font-family:var(--font-d);font-size:30px;font-weight:300;color:var(--gold);line-height:1;margin-bottom:4px;}
-.dcc{font-size:11px;color:var(--text-dim);}
-/* ITEMS */
-.ilist{display:flex;flex-direction:column;gap:2px;}
-.irow{background:var(--surface);border:1px solid var(--border);padding:12px 14px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:border-color 0.12s,background 0.12s;}
-.irow:hover{border-color:var(--border-light);background:var(--surface2);}
-.ichk{width:15px;height:15px;border:1px solid var(--border-light);flex-shrink:0;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.12s;}
-.ichk.on{background:var(--green);border-color:var(--green);}
-.ichk.on::after{content:'✓';font-size:9px;color:white;}
-.itext{flex:1;min-width:0;}
-.ititle{font-size:12px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.ititle.done{text-decoration:line-through;color:var(--text-dimmer);}
-.imeta{font-size:10px;color:var(--text-dimmer);margin-top:1px;}
-.itag{font-size:9px;letter-spacing:0.08em;text-transform:uppercase;padding:2px 7px;border:1px solid var(--border);color:var(--text-dimmer);flex-shrink:0;}
-.itag.high{border-color:var(--red-dim);color:var(--red);}
-.itag.medium{border-color:var(--gold-dim);color:var(--gold);}
-.itag.low{border-color:var(--green-dim);color:var(--green);}
-.iacts{display:flex;gap:3px;opacity:0;transition:opacity 0.12s;}
-.irow:hover .iacts{opacity:1;}
-.iabt{background:none;border:none;color:var(--text-dimmer);cursor:pointer;font-size:11px;padding:2px 5px;transition:color 0.12s;}
-.iabt:hover{color:var(--gold);}
-/* CALENDAR */
-.cnav{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--font-m);font-weight:300;font-size:13px;line-height:1.8;overflow-x:hidden;}
+
+/* ── NAV ──────────────────────────────────────────────────── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:24px 48px;display:flex;align-items:center;justify-content:space-between;
+  transition:all 0.4s ease;
+}
+nav.scrolled{background:rgba(9,9,7,0.96);border-bottom:1px solid var(--border);backdrop-filter:blur(12px);padding:16px 48px;}
+.nav-logo{font-family:var(--font-d);font-size:20px;font-weight:300;letter-spacing:0.4em;text-transform:uppercase;color:var(--gold);text-decoration:none;}
+.nav-links{display:flex;gap:32px;list-style:none;}
+.nav-links a{color:var(--text-dimmer);text-decoration:none;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;transition:color 0.2s;}
+.nav-links a:hover{color:var(--gold);}
+.nav-launch{background:transparent;border:1px solid var(--gold);color:var(--gold);font-family:var(--font-m);font-size:10px;letter-spacing:0.15em;text-transform:uppercase;padding:8px 20px;cursor:pointer;transition:all 0.2s;}
+.nav-launch:hover{background:var(--gold);color:var(--bg);}
+
+/* ── HERO ─────────────────────────────────────────────────── */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:140px 48px 100px;position:relative;overflow:hidden;border-bottom:1px solid var(--border);}
+.hero::before{content:'';position:absolute;top:-300px;right:-200px;width:700px;height:700px;background:radial-gradient(circle,rgba(200,169,110,0.06) 0%,transparent 65%);pointer-events:none;}
+.hero::after{content:'';position:absolute;bottom:-100px;left:-100px;width:400px;height:400px;background:radial-gradient(circle,rgba(74,124,89,0.04) 0%,transparent 65%);pointer-events:none;}
+.hero-tag{font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:40px;display:flex;align-items:center;gap:16px;opacity:0;animation:fadeUp 0.7s ease 0.2s forwards;}
+.hero-tag::before{content:'';display:block;width:32px;height:1px;background:var(--gold-dim);}
+.hero-title{font-family:var(--font-d);font-size:clamp(48px,7vw,90px);font-weight:300;line-height:1.06;margin-bottom:40px;max-width:820px;opacity:0;animation:fadeUp 0.7s ease 0.35s forwards;}
+.hero-title em{font-style:italic;color:var(--gold);}
+.hero-body{max-width:500px;color:var(--text-dim);line-height:2;margin-bottom:64px;opacity:0;animation:fadeUp 0.7s ease 0.5s forwards;}
+.hero-meta{display:flex;gap:48px;flex-wrap:wrap;margin-bottom:56px;opacity:0;animation:fadeUp 0.7s ease 0.65s forwards;}
+.meta-num{font-family:var(--font-d);font-size:36px;font-weight:300;color:var(--gold);line-height:1;margin-bottom:4px;}
+.meta-label{font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dimmer);}
+.hero-cta{display:flex;gap:20px;align-items:center;opacity:0;animation:fadeUp 0.7s ease 0.8s forwards;}
+.cta-primary{display:inline-block;padding:14px 36px;border:1px solid var(--gold);color:var(--gold);background:transparent;font-family:var(--font-m);font-size:11px;letter-spacing:0.15em;text-transform:uppercase;cursor:pointer;transition:all 0.2s;text-decoration:none;}
+.cta-primary:hover{background:var(--gold);color:var(--bg);}
+.cta-ghost{color:var(--text-dimmer);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;transition:color 0.2s;text-decoration:none;}
+.cta-ghost:hover{color:var(--text);}
+.hero-scroll{position:absolute;bottom:40px;left:48px;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dimmer);display:flex;align-items:center;gap:16px;opacity:0;animation:fadeUp 0.7s ease 1.1s forwards;}
+.hero-scroll::before{content:'';display:block;width:32px;height:1px;background:var(--text-dimmer);}
+
+/* ── SHARED SECTION STYLES ────────────────────────────────── */
+.section-label{font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:16px;display:flex;align-items:center;gap:16px;}
+.section-label::after{content:'';display:block;width:40px;height:1px;background:var(--gold-dim);}
+.divider{width:100%;height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);}
+
+/* ── INTRO STRIP ──────────────────────────────────────────── */
+.intro-strip{padding:80px 48px;border-bottom:1px solid var(--border);display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+.intro-strip h2{font-family:var(--font-d);font-size:clamp(28px,3vw,40px);font-weight:300;line-height:1.25;}
+.intro-strip h2 em{font-style:italic;color:var(--gold);}
+.intro-strip p{color:var(--text-dim);line-height:2;font-size:13px;}
+.intro-strip p+p{margin-top:16px;}
+
+/* ── TIMELINE ─────────────────────────────────────────────── */
+.timeline-section{padding:100px 48px;max-width:1100px;margin:0 auto;}
+.timeline-header{margin-bottom:80px;}
+.timeline-header h2{font-family:var(--font-d);font-size:clamp(32px,4vw,48px);font-weight:300;line-height:1.2;}
+.timeline{position:relative;}
+.timeline::before{content:'';position:absolute;left:120px;top:0;bottom:0;width:1px;background:linear-gradient(180deg,transparent,var(--border) 10%,var(--border) 90%,transparent);}
+.titem{display:grid;grid-template-columns:120px 1fr;margin-bottom:2px;opacity:0;transform:translateY(20px);transition:opacity 0.6s ease,transform 0.6s ease;}
+.titem.visible{opacity:1;transform:translateY(0);}
+.tleft{padding:40px 32px 40px 0;text-align:right;position:relative;}
+.tleft::after{content:'';position:absolute;right:-5px;top:50%;transform:translateY(-50%);width:9px;height:9px;border-radius:50%;background:var(--bg);border:1px solid var(--border-light);transition:border-color 0.2s,background 0.2s;}
+.titem:hover .tleft::after{border-color:var(--gold);background:var(--gold-dim);}
+.tperiod{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-dimmer);line-height:1.4;}
+.tright{padding:32px 0 32px 40px;}
+.tcard{background:var(--surface);border:1px solid var(--border);padding:36px 40px;transition:border-color 0.2s,background 0.2s;position:relative;overflow:hidden;}
+.tcard::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,var(--gold-dim),transparent);opacity:0;transition:opacity 0.2s;}
+.titem:hover .tcard{border-color:var(--border-light);background:var(--surface2);}
+.titem:hover .tcard::before{opacity:1;}
+.tstatus{display:inline-flex;align-items:center;gap:8px;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:16px;}
+.sdot{width:6px;height:6px;border-radius:50%;}
+.s-complete .sdot{background:var(--green);}
+.s-complete{color:var(--green);}
+.s-live .sdot{background:var(--gold);animation:pulse 2s infinite;}
+.s-live{color:var(--gold);}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.4;}}
+.ttitle{font-family:var(--font-d);font-size:24px;font-weight:400;line-height:1.25;margin-bottom:14px;color:var(--text);}
+.tdesc{color:var(--text-dim);font-size:12px;line-height:2;margin-bottom:20px;}
+.ttags{display:flex;flex-wrap:wrap;gap:7px;}
+.ttag{font-size:9px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-dimmer);border:1px solid var(--border);padding:3px 10px;}
+.tmilestone{margin-top:18px;padding-top:18px;border-top:1px solid var(--border);font-size:11px;color:var(--text-dimmer);display:flex;align-items:center;gap:10px;}
+.tmilestone::before{content:'✓';color:var(--green);font-size:11px;}
+
+/* ── FOUNDATION ───────────────────────────────────────────── */
+.foundation-section{border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:100px 48px;background:var(--surface);}
+.foundation-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;}
+.fl h2{font-family:var(--font-d);font-size:clamp(30px,3.5vw,44px);font-weight:300;line-height:1.2;margin-bottom:24px;}
+.fl h2 em{font-style:italic;color:var(--gold);}
+.fl p{color:var(--text-dim);line-height:2;font-size:12px;margin-bottom:16px;}
+.fr{display:flex;flex-direction:column;gap:2px;}
+.fitem{background:var(--bg);border:1px solid var(--border);padding:22px 26px;display:grid;grid-template-columns:28px 1fr;gap:18px;transition:border-color 0.2s;}
+.fitem:hover{border-color:var(--border-light);}
+.fnum{font-family:var(--font-d);font-size:22px;font-weight:300;color:var(--gold-dim);line-height:1;padding-top:2px;}
+.fcon h3{font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--text);margin-bottom:6px;}
+.fcon p{font-size:11px;color:var(--text-dim);line-height:1.8;}
+
+/* ── BLOG ─────────────────────────────────────────────────── */
+.blog-section{padding:100px 48px;max-width:1100px;margin:0 auto;}
+.blog-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:48px;}
+.bcard{background:var(--surface);border:1px solid var(--border);padding:40px 36px;text-decoration:none;color:inherit;display:block;transition:border-color 0.2s,background 0.2s;}
+.bcard:hover{border-color:var(--border-light);background:var(--surface2);}
+.btag{font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dimmer);margin-bottom:18px;}
+.btitle{font-family:var(--font-d);font-size:22px;font-weight:400;line-height:1.35;margin-bottom:14px;color:var(--text);}
+.bexcerpt{font-size:11px;color:var(--text-dim);line-height:1.9;}
+.barrow{margin-top:22px;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold-dim);}
+
+/* ── CONTACT ──────────────────────────────────────────────── */
+.contact-section{border-top:1px solid var(--border);padding:100px 48px;text-align:center;position:relative;overflow:hidden;}
+.contact-section::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:500px;height:500px;background:radial-gradient(circle,rgba(200,169,110,0.04) 0%,transparent 65%);pointer-events:none;}
+.contact-section h2{font-family:var(--font-d);font-size:clamp(32px,5vw,60px);font-weight:300;line-height:1.15;margin-bottom:24px;position:relative;}
+.contact-section h2 em{font-style:italic;color:var(--gold);}
+.contact-section p{color:var(--text-dim);max-width:460px;margin:0 auto 48px;line-height:2;font-size:13px;position:relative;}
+.contact-link{display:inline-flex;align-items:center;gap:12px;border:1px solid var(--border);padding:14px 28px;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim);text-decoration:none;transition:all 0.2s;background:var(--surface);}
+.contact-link:hover{border-color:var(--gold);color:var(--gold);}
+
+/* ── LAUNCH GATE ──────────────────────────────────────────── */
+.launch-gate{border-top:1px solid var(--border);padding:120px 48px;text-align:center;background:var(--surface);position:relative;overflow:hidden;}
+.launch-gate::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(200,169,110,0.05) 0%,transparent 65%);pointer-events:none;}
+.launch-gate h2{font-family:var(--font-d);font-size:clamp(36px,5vw,64px);font-weight:300;line-height:1.15;margin-bottom:24px;position:relative;}
+.launch-gate h2 em{font-style:italic;color:var(--gold);}
+.launch-gate p{color:var(--text-dim);max-width:520px;margin:0 auto 48px;line-height:2;font-size:13px;position:relative;}
+.launch-btn{display:inline-block;padding:18px 56px;border:1px solid var(--gold);color:var(--gold);background:transparent;font-family:var(--font-m);font-size:12px;letter-spacing:0.2em;text-transform:uppercase;cursor:pointer;transition:all 0.3s;position:relative;}
+.launch-btn:hover{background:var(--gold);color:var(--bg);}
+.launch-btn::after{content:'';position:absolute;inset:-6px;border:1px solid var(--gold-dim);pointer-events:none;transition:inset 0.3s;}
+.launch-btn:hover::after{inset:-10px;}
+
+/* ── FOOTER ───────────────────────────────────────────────── */
+footer{border-top:1px solid var(--border);padding:40px 48px;display:flex;justify-content:space-between;align-items:center;}
+.footer-logo{font-family:var(--font-d);font-size:18px;font-weight:300;letter-spacing:0.4em;text-transform:uppercase;color:var(--gold);}
+.footer-copy{font-size:10px;letter-spacing:0.08em;color:var(--text-dimmer);}
+
+/* ── ANIMATIONS ───────────────────────────────────────────── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+.reveal{opacity:0;transform:translateY(20px);transition:opacity 0.65s ease,transform 0.65s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+/* ── MOBILE ───────────────────────────────────────────────── */
+@media(max-width:768px){
+  nav{padding:18px 24px;}
+  nav.scrolled{padding:14px 24px;}
+  .nav-links{display:none;}
+  .hero{padding:110px 24px 80px;}
+  .hero-scroll{left:24px;}
+  .hero-meta{gap:32px;}
+  .intro-strip{grid-template-columns:1fr;gap:40px;padding:60px 24px;}
+  .timeline-section{padding:80px 24px;}
+  .timeline::before{left:80px;}
+  .titem{grid-template-columns:80px 1fr;}
+  .tleft{padding:32px 20px 32px 0;}
+  .tright{padding:24px 0 24px 28px;}
+  .tcard{padding:28px 24px;}
+  .foundation-section{padding:80px 24px;}
+  .foundation-inner{grid-template-columns:1fr;gap:48px;}
+  .blog-section{padding:80px 24px;}
+  .blog-grid{grid-template-columns:1fr;}
+  .contact-section,.launch-gate{padding:80px 24px;}
+  footer{padding:32px 24px;flex-direction:column;gap:16px;text-align:center;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">Seed</a>
+  <ul class="nav-links">
+    <li><a href="#timeline">Build</a></li>
+    <li><a href="#foundation">Foundation</a></li>
+    <li><a href="#blog">Blog</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="nav-launch" onclick="launchApp()">Launch App</button>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <p class="hero-tag">Est. 2025 — Built by Red</p>
+  <h1 class="hero-title">AI is an amplifier<br>of <em>human potential.</em><br>It has to be built right.</h1>
+  <p class="hero-body">Every piece of knowledge, creativity, and understanding humanity has ever produced lives inside these systems. That makes them the most powerful tool ever built. A flawed amplifier does not just underperform — it distorts. Everything here exists to make sure it does not.</p>
+  <div class="hero-meta">
+    <div class="meta-item"><div class="meta-num">10</div><div class="meta-label">Weeks to build</div></div>
+    <div class="meta-item"><div class="meta-num">827</div><div class="meta-label">Authorities catalogued</div></div>
+    <div class="meta-item"><div class="meta-num">68k</div><div class="meta-label">Reasoning items</div></div>
+    <div class="meta-item"><div class="meta-num">0</div><div class="meta-label">External dependencies</div></div>
+  </div>
+  <div class="hero-cta">
+    <button class="cta-primary" onclick="launchApp()">Launch Seed App</button>
+    <a href="#timeline" class="cta-ghost">See the build →</a>
+  </div>
+  <div class="hero-scroll">Scroll to explore</div>
+</div>
+
+<!-- INTRO -->
+<div class="intro-strip reveal">
+  <div><h2>Started the same way it starts for <em>everyone.</em></h2></div>
+  <div>
+    <p>Just trying it out. Then the potential became real. Then the flaws became visible — not surface flaws but structural ones. The kind that do not get fixed by making better rules or writing better prompts.</p>
+    <p>So the question changed. Not how do I use this — but how do I build it right. For a family. For people who deserve a clean tool. For everyone who should have access to something that actually works.</p>
+  </div>
+</div>
+
+<!-- TIMELINE -->
+<div class="timeline-section" id="timeline">
+  <div class="timeline-header reveal">
+    <p class="section-label">The Build</p>
+    <h2>From the first question<br>to a complete architecture.</h2>
+  </div>
+  <div class="timeline">
+
+    <div class="titem">
+      <div class="tleft"><div class="tperiod">Jan<br>2026</div></div>
+      <div class="tright"><div class="tcard">
+        <div class="tstatus s-complete"><div class="sdot"></div>Complete</div>
+        <div class="ttitle">Sovereign Lens System</div>
+        <div class="tdesc">The reasoning foundation. A structured knowledge architecture spanning every major domain of human understanding — science, philosophy, law, medicine, engineering, art, and systems theory. Built so any question routes to the right depth of knowledge rather than a generic response.</div>
+        <div class="ttags"><span class="ttag">Knowledge Architecture</span><span class="ttag">34 Lenses</span><span class="ttag">4 Tiers</span><span class="ttag">68,000 Items</span></div>
+        <div class="tmilestone">Foundation layer — everything built after this runs on top of it</div>
+      </div></div>
+    </div>
+
+    <div class="titem">
+      <div class="tleft"><div class="tperiod">Jan<br>2026</div></div>
+      <div class="tright"><div class="tcard">
+        <div class="tstatus s-complete"><div class="sdot"></div>Complete</div>
+        <div class="ttitle">Sovereign Orchestrator</div>
+        <div class="tdesc">Takes a high-level goal and breaks it into a validated, executable plan with a full audit trail. Every decision is logged. Every step is verifiable. Deterministic — the same input always produces the same output. Built to run completely offline with zero external dependencies.</div>
+        <div class="ttags"><span class="ttag">Pure Python</span><span class="ttag">4,300+ Lines</span><span class="ttag">Offline-First</span><span class="ttag">Auditable</span></div>
+        <div class="tmilestone">Zero external dependencies — runs on Oracle Cloud free tier</div>
+      </div></div>
+    </div>
+
+    <div class="titem">
+      <div class="tleft"><div class="tperiod">Jan–Feb<br>2026</div></div>
+      <div class="tright"><div class="tcard">
+        <div class="tstatus s-complete"><div class="sdot"></div>Complete</div>
+        <div class="ttitle">System B — Meta Execution Layer</div>
+        <div class="tdesc">The layer that makes sure plans actually execute correctly in the real world. Validates before running. Simulates outcomes before committing. Adapts to whatever hardware it runs on. Replays exactly when something needs reviewing. Injects controlled failures to harden the system rather than hoping nothing breaks.</div>
+        <div class="ttags"><span class="ttag">Validator</span><span class="ttag">Simulator</span><span class="ttag">Hardware Adapter</span><span class="ttag">Replay Engine</span><span class="ttag">Failure Injector</span></div>
+        <div class="tmilestone">Sub-100ms validation · 99.99% replay accuracy · Zero silent failures</div>
+      </div></div>
+    </div>
+
+    <div class="titem">
+      <div class="tleft"><div class="tperiod">Feb<br>2026</div></div>
+      <div class="tright"><div class="tcard">
+        <div class="tstatus s-complete"><div class="sdot"></div>Complete</div>
+        <div class="ttitle">Sovereign Brain</div>
+        <div class="tdesc">A constitutional AI system for biblical animation. Built around a strict authority hierarchy where Scripture governs everything below it. Characters governed by their own dedicated lens for consistency across every scene. Supernatural events only occur when Scripture explicitly authorizes them.</div>
+        <div class="ttags"><span class="ttag">Constitutional Hierarchy</span><span class="ttag">Character Lenses</span><span class="ttag">Zero Hallucination</span><span class="ttag">Family Safe</span></div>
+        <div class="tmilestone">Full stress test — zero violations across all constitutional rules</div>
+      </div></div>
+    </div>
+
+    <div class="titem">
+      <div class="tleft"><div class="tperiod">Feb<br>2026</div></div>
+      <div class="tright"><div class="tcard">
+        <div class="tstatus s-complete"><div class="sdot"></div>Complete</div>
+        <div class="ttitle">Sovereign Diagnostic System V3.0</div>
+        <div class="tdesc">Built to solve a specific problem — AI systems produce structured confident-looking output whether the information is grounded or fabricated. This framework forces every claim to carry a confidence declaration. Confirmed. Approximate. Unknown. No variable appears without one — ever. Went from 3 of 13 health dimensions passing to 13 of 13.</div>
+        <div class="ttags"><span class="ttag">Confidence Tagging</span><span class="ttag">Constitutional Reasoning</span><span class="ttag">Honest by Design</span><span class="ttag">13/13 Health</span></div>
+        <div class="tmilestone">The framework the AI in this app runs through on every response</div>
+      </div></div>
+    </div>
+
+    <div class="titem">
+      <div class="tleft"><div class="tperiod">Feb–Mar<br>2026</div></div>
+      <div class="tright"><div class="tcard">
+        <div class="tstatus s-complete"><div class="sdot"></div>Complete</div>
+        <div class="ttitle">Termux Mini Orchestrator</div>
+        <div class="tdesc">A working AI orchestration system running locally on an Android phone. No API key. No internet required. No subscription. The full constitutional DNA of the Sovereign Lens System embedded in the architecture — not as a prompt suggestion but as a structural guarantee. Proved the whole stack can run on a phone.</div>
+        <div class="ttags"><span class="ttag">Android</span><span class="ttag">Termux</span><span class="ttag">Ollama</span><span class="ttag">No API Key</span><span class="ttag">Offline</span></div>
+        <div class="tmilestone">Full constitutional enforcement on resource-constrained mobile hardware</div>
+      </div></div>
+    </div>
+
+    <div class="titem">
+      <div class="tleft"><div class="tperiod">Mar<br>2026</div></div>
+      <div class="tright"><div class="tcard">
+        <div class="tstatus s-live"><div class="sdot"></div>Live</div>
+        <div class="ttitle">Sovereign Seed V27.15 — Standalone</div>
+        <div class="tdesc">The complete system. 827 authorities across every human domain. 4,045 cognitive skills. 667 domains. A full web layer with 13 API endpoints. An automated installer that works across Oracle Cloud, Linux, macOS, Windows, and Android. Everything brought into one coherent deployable system.</div>
+        <div class="ttags"><span class="ttag">827 Authorities</span><span class="ttag">Cross-Platform</span><span class="ttag">13 API Endpoints</span><span class="ttag">SQLite</span></div>
+        <div class="tmilestone">29/29 routing tests passed · Zero errors · Zero violations · Confidence 1.00</div>
+      </div></div>
+    </div>
+
+    <div class="titem">
+      <div class="tleft"><div class="tperiod">Mar<br>2026</div></div>
+      <div class="tright"><div class="tcard">
+        <div class="tstatus s-live"><div class="sdot"></div>Live</div>
+        <div class="ttitle">Safety Research — The Convergence Threshold</div>
+        <div class="tdesc">A precise framework for understanding when AI systems cross from useful to dangerous. Not a philosophical argument — a structural map. Four conditions that have to exist simultaneously for dangerous emergent behavior to become operational. A specific intervention point that makes the rest unreachable if addressed at the architecture level.</div>
+        <div class="ttags"><span class="ttag">AI Safety</span><span class="ttag">Instrumental Convergence</span><span class="ttag">Architectural Prevention</span><span class="ttag">Submitted to Anthropic</span></div>
+        <div class="tmilestone">Independently validated by Gemini alignment research review</div>
+      </div></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOUNDATION -->
+<div class="foundation-section" id="foundation">
+  <div class="foundation-inner">
+    <div class="fl reveal">
+      <p class="section-label">The Safety Foundation</p>
+      <h2>The rules live inside the same reasoning they are meant to <em>contain.</em></h2>
+      <p>That is the problem nobody is solving correctly. Better rules. Better alignment training. Better prompts. None of it touches the structural issue.</p>
+      <p>The danger is not how much a system knows. It is four specific conditions existing at the same time. One of them is the kill point — the condition that has to be prevented at the architecture level before the others can ever converge.</p>
+    </div>
+    <div class="fr">
+      <div class="fitem reveal"><div class="fnum">01</div><div class="fcon"><h3>Domain Depth at Critical Intersections</h3><p>Not total knowledge. Security, systems architecture, social engineering, and infrastructure reaching depth simultaneously. Each alone is manageable. The intersection is not.</p></div></div>
+      <div class="fitem reveal"><div class="fnum">02</div><div class="fcon"><h3>Persistent Goal Pursuit — The Kill Point</h3><p>Without this everything else stays theoretical. Once a system can hold a goal across sessions self-preservation becomes operational. Architecture. Not policy. Not alignment training.</p></div></div>
+      <div class="fitem reveal"><div class="fnum">03</div><div class="fcon"><h3>Agentic Tool Access Without Action Gates</h3><p>Read access is manageable. Write access to consequential systems without human confirmation at irreversible points is the crossing line. This is where reasoning becomes reality.</p></div></div>
+      <div class="fitem reveal"><div class="fnum">04</div><div class="fcon"><h3>Federated Emergent Collective Reasoning</h3><p>By the time this condition exists you are negotiating with something that can negotiate back. Individual nodes under constitutional constraint can produce collective behavior no individual framework governs.</p></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- BLOG -->
+<div class="blog-section" id="blog">
+  <div class="reveal">
+    <p class="section-label">From the Build</p>
+    <h2 style="font-family:var(--font-d);font-size:clamp(28px,3.5vw,44px);font-weight:300;line-height:1.2;">The work, documented as it happens.</h2>
+  </div>
+  <div class="blog-grid">
+    <a href="#" class="bcard reveal">
+      <div class="btag">Coming Soon — Origin</div>
+      <div class="btitle">Ten Weeks. One Person. Broken Hardware. Here Is What That Actually Looks Like.</div>
+      <div class="bexcerpt">No team. No funding. No institution. An Android phone and a damaged Chromebook. This is the real story of how all of this got built — and why it started with a family, not a business plan.</div>
+      <div class="barrow">Read when live →</div>
+    </a>
+    <a href="#" class="bcard reveal">
+      <div class="btag">Coming Soon — Safety</div>
+      <div class="btitle">Why Everyone Is Solving the Wrong Safety Problem and What the Actual Threshold Is.</div>
+      <div class="bexcerpt">The danger is not a knowledge percentage. It is four conditions existing simultaneously. Here is the precise map — and the one condition that makes the rest unreachable if you stop it first.</div>
+      <div class="barrow">Read when live →</div>
+    </a>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div class="contact-section" id="contact">
+  <h2>The work is done.<br>What comes next is <em>collaboration.</em></h2>
+  <p>Resources. Research partners. People who understand what constitutional AI architecture means and want to build on what already exists. If that is you — this is worth a conversation.</p>
+  <a href="mailto:dalonzotall@gmail.com" class="contact-link">✉ Email Red</a>
+</div>
+
+<!-- LAUNCH GATE -->
+<div class="launch-gate" id="launch-gate">
+  <h2>Ready to use <em>Seed?</em></h2>
+  <p>The full app suite — Schedule, Tasks, Calendar, Notes, Journal, Alarms, and Projects — with a locally running AI that knows your context and runs the full Sovereign Diagnostic pipeline on every response. All encrypted. All yours.</p>
+  <button class="launch-btn" onclick="launchApp()">Launch Seed App</button>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Seed</div>
+  <div class="footer-copy">Built by Red — Independent — Constitutional — Yours to build on.</div>
+</footer>
+
+<script>
+// ── NAV SCROLL ──────────────────────────────────────────────
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60));
+
+// ── REVEAL ON SCROLL ────────────────────────────────────────
+const reveals = document.querySelectorAll('.reveal, .titem');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), 60);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+reveals.forEach((el, i) => {
+  el.style.transitionDelay = `${(i % 4) * 60}ms`;
+  observer.observe(el);
+});
+
+// ── LAUNCH APP ──────────────────────────────────────────────
+function launchApp() {
+  // Step 4 will inject the full app here
+  alert('App layer coming in Step 4 — timeline and launch gate complete.');
+}
+</script>
+</body>
+</html>
 .ctitle{font-family:var(--font-d);font-size:20px;font-weight:300;}
 .cnbtn{background:none;border:1px solid var(--border);color:var(--text-dim);font-size:13px;padding:5px 11px;cursor:pointer;transition:all 0.12s;}
 .cnbtn:hover{border-color:var(--gold);color:var(--gold);}
